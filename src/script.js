@@ -209,7 +209,7 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'cube_map/';
+	const path = 'pisa/';
 	const urls = [
 		path + 'px.png',
 		path + 'nx.png',
