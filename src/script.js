@@ -154,7 +154,7 @@ function init() {
 		dithering: true,
 	}); // Wire
 
-	pointMaterial = new THREE.MeshBasicMaterial({
+	pointMaterial = new THREE.PointsMaterial({
 		color: params.color,
 		wireframe: true,
 		dithering: true,
@@ -193,7 +193,7 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'pisa/';
+	const path = 'cube_map/';
 	const urls = [
 		path + 'px.png',
 		path + 'nx.png',
@@ -604,7 +604,7 @@ function simulate() {
 			mesh.material = wireMaterial;
 			break;
 		case 'point':
-			mesh.material = flatMaterial;
+			mesh.material = pointMaterial;
 			break;
 		case 'flat':
 			mesh.material = flatMaterial;
