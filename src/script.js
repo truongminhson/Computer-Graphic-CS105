@@ -242,8 +242,6 @@ function init() {
 	points.visible = false;
 	mesh.add(points);
 
-	// ADD ANIMATION
-
 	// CONTROLS
 	orbit = new OrbitControls( currentCamera, renderer.domElement );
     orbit.update();
@@ -626,6 +624,18 @@ function simulate() {
 
 	mesh.material.color.setHex(params.color);
 	spotLight.position.set(params.lx, params.ly, params.lz);
+
+	switch(params.modeControl){
+		case 'translate':
+			control.setMode( 'translate' );
+			break;
+		case 'rotate':
+			control.setMode( 'rotate' );
+			break;
+		case 'scale':
+			control.setMode( 'scale' );
+			break;
+	} 
 
 	const time = Date.now();
 	switch (params.animation) {
