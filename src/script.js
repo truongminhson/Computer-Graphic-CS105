@@ -294,7 +294,7 @@ function init() {
 				grid.visible = false;
 				ground.visible = false;
 			}
-		});
+	});
 
 	ob.add(params, 'loadFile').name('LoadImage texture');
 	ob.addColor(params, 'color').name('Color object');
@@ -306,21 +306,13 @@ function init() {
 		Translate: 'aniTranslate' 
 	})
 		.name('Animation')
-		.onChange(function (val) {
-			switch (!val) {
-				case 'aniScale':
-					mesh.scale.x += 0.02;
-					mesh.scale.z += 0.05;
-					break;
-				case 'aniRotation':
-					mesh.rotation.x += 0.02;
-					mesh.rotation.y += 0.03;
-					break;		
-				case 'aniTranslate':
-					mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.05);
-					break;
+		.onChange(function(val){
+			if(!val){
+				mesh.position.set(0,40,0);
+				mesh.rotation.x = 0;
+				mesh.rotation.y = 0;
 			}
-		});
+	});
 
 	ob.add( params, 'modeControl', {
 		Disable: 'disable', 
