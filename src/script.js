@@ -193,14 +193,14 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'pisa/';
+	const path = 'cube_map/';
 	const urls = [
-		path + 'px.png',
-		path + 'nx.png',
-		path + 'py.png',
-		path + 'ny.png',
-		path + 'pz.png',
-		path + 'nz.png',
+		path + 'px.jpg',
+		path + 'nx.jpg',
+		path + 'py.jpg',
+		path + 'ny.jpg',
+		path + 'pz.jpg',
+		path + 'nz.jpg',
 	];
 	textureCube = new THREE.CubeTextureLoader().load(urls);
 	textureCube.encoding = THREE.sRGBEncoding;
@@ -308,7 +308,7 @@ function init() {
 	})
 		.name('Animation')
 		.onChange(function(val){
-			if(!val){
+			if(val == 'disable'){
 				mesh.position.set(0,40,0);
 				mesh.rotation.x = 0;
 				mesh.rotation.y = 0;
