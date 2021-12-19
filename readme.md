@@ -2,11 +2,11 @@
 
 # Tải source về máy
 
-git clone https://github.com/satthdaolua/Computer-Vision-CS105.git
+git clone https://github.com/truongminhson/Computer-Graphic-CS105.git
 
 # Chuyển vào Folder Computer-Vision
 
-cd Computer-Vision-CS105
+cd Computer-Graphic-CS105
 
 # Cài đặt các package
 
