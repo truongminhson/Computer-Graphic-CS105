@@ -309,7 +309,8 @@ function init() {
 		.onChange(function (val) {
 			switch (!val) {
 				case 'aniScale':
-					mesh.scale.set(1,1,2);
+					mesh.scale.x += 0.02;
+					mesh.scale.z += 0.05;
 					break;
 				case 'aniRotation':
 					mesh.rotation.x += 0.02;
@@ -637,9 +638,6 @@ function simulate() {
 	mesh.position.y = Math.sin(time * 0.001) * 30;
 	mesh.position.z = Math.sin(time * 0.001) * 300;
 	switch (params.animation) {
-		case 'disable':
-			animate().enabled = false;
-			break;
 		case 'aniScale':
 			mesh.scale.x += 0.02;
 			mesh.scale.z += 0.05;
