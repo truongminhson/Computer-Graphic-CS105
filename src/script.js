@@ -42,20 +42,20 @@ let boxGeo,
 	tubeGeo;
 
 let params = {
-	loadFile: function () {
+	loadFile : function() { 
 		document.getElementById('myInput').click();
 	},
 	shape: 'tube',
 	material: 'flat',
 	modeControl: 'translate',
 	color: 0xffffff,
-	lx: -50,
-	ly: 200,
-	lz: 50,
-	cx: 400,
-	cy: 200,
-	cz: 400,
-	animation: false,
+	lx:-50,
+	ly:200,
+	lz:50,
+	cx:400,
+	cy:200,
+	cz:400,
+	animation: 'disable',
 };
 
 //GET CANVAS
@@ -146,22 +146,6 @@ function init() {
 	grid.material.transparent = true;
 	scene.add(grid);
 
-	// CONTROLS
-	orbit = new OrbitControls(currentCamera, renderer.domElement);
-	orbit.update();
-	orbit.addEventListener('change', render);
-
-	control = new TransformControls(currentCamera, renderer.domElement);
-	control.addEventListener('change', render);
-
-	control.addEventListener('dragging-changed', function (event) {
-		orbit.enabled = !event.value;
-	});
-
-	// control add mesh, scene add control
-	control.attach(mesh);
-	scene.add(control);
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// MATERIAL
 	wireMaterial = new THREE.MeshBasicMaterial({
@@ -245,7 +229,6 @@ function init() {
 	mesh.castShadow = true;
 	scene.add(mesh);
 
-	//
 	const pointsMaterial = new THREE.PointsMaterial({
 		size: 5,
 		sizeAttenuation: false,
@@ -259,7 +242,24 @@ function init() {
 	points.visible = false;
 	mesh.add(points);
 
-	//GUI
+	// ADD ANIMATION
+
+	// CONTROLS
+	orbit = new OrbitControls( currentCamera, renderer.domElement );
+    orbit.update();
+    orbit.addEventListener( 'change', render );
+
+    control = new TransformControls( currentCamera, renderer.domElement );
+    control.addEventListener( 'change', render );
+
+    control.addEventListener( 'dragging-changed', function ( event ) {
+        orbit.enabled = ! event.value;
+    } );
+
+    // ADD MESH, ADD CONTROL
+    control.attach( mesh );
+    scene.add( control );
+
 	//ADD GUI
 	let ob = gui.addFolder('Object');
 
@@ -298,7 +298,13 @@ function init() {
 
 	ob.add(params, 'loadFile').name('LoadImage texture');
 	ob.addColor(params, 'color').name('Color object');
-	ob.add(params, 'animation')
+
+	ob.add( params, 'animation', {
+		Disable: 'disable', 
+		Scaling: 'aniScale', 
+		Rotation: 'aniRotation', 
+		Translate: 'aniTranslate' 
+	})
 		.name('Animation')
 		.onChange(function (val) {
 			if (!val) {
@@ -308,12 +314,13 @@ function init() {
 			}
 		});
 
-	ob.add(params, 'modeControl', {
-		Disable: 'disable',
-		Translate: 'translate',
-		Rotate: 'rotate',
-		Scale: 'scale',
-	}).name('Mode Control');
+	ob.add( params, 'modeControl', {
+		Disable: 'disable', 
+		Translate: 'translate', 
+		Rotate: 'rotate', 
+		Scale: 'scale' 
+	})
+	.name('Mode Control');
 
 	const paramsLight = {
 		'light color': spotLight.color.getHex(),
@@ -370,50 +377,62 @@ function init() {
 	light.add(params, 'lz', -100, 100, 10).name('z');
 
 	//Event Listener
-	document.getElementById('myInput').addEventListener('change', function () {
-		const file1 = document.getElementById('myInput').files[0];
-		let reader = new FileReader();
-		reader.readAsDataURL(file1);
-		reader.onload = function () {
-			localStorage.setItem('image', reader.result);
-			// TEXTURE MAP
-			const textureMap1 = new THREE.TextureLoader().load(
-				localStorage.getItem('image')
-			);
-			textureMap1.wrapS = textureMap1.wrapT = THREE.RepeatWrapping;
-			textureMap1.anisotropy = 16;
-			textureMap1.encoding = THREE.sRGBEncoding;
-			texturedMaterial = new THREE.MeshPhongMaterial({
-				color: params.color,
-				map: textureMap1,
-				side: THREE.DoubleSide,
-			});
-		};
-	});
-	window.addEventListener('resize', onWindowResize);
-	gui.domElement.addEventListener(
-		'change',
-		function () {
-			// control
-			if (params.modeControl == 'disable') {
-				control.enabled = false;
-			} else {
-				control.enabled = true;
-				switch (params.modeControl) {
-					case 'translate':
-						control.setMode('translate');
-						break;
-					case 'rotate':
-						control.setMode('rotate');
-						break;
-					case 'scale':
-						control.setMode('scale');
-						break;
-				}
-			}
-		},
-		false
-	);
+	document.getElementById('myInput').addEventListener('change', function(){
+        const file1 = document.getElementById('myInput').files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file1);
+        reader.onload = function () {
+            localStorage.setItem("image", reader.result);
+            // TEXTURE MAP
+            const textureMap1 = new THREE.TextureLoader().load( localStorage.getItem("image"));
+            textureMap1.wrapS = textureMap1.wrapT = THREE.RepeatWrapping;
+            textureMap1.anisotropy = 16;
+            textureMap1.encoding = THREE.sRGBEncoding;
+            texturedMaterial = new THREE.MeshPhongMaterial( { color: params.color, map: textureMap1, side: THREE.DoubleSide } );
+        };
+    })
+    window.addEventListener( 'resize', onWindowResize );
+    gui.domElement.addEventListener( 'change', function(){
+        // control
+        if(params.modeControl == 'disable'){
+            control.enabled = false;
+        } else{
+            control.enabled = true;
+            switch(params.modeControl){
+                case 'translate':
+                    control.setMode( 'translate' );
+                    break;
+                case 'rotate':
+                    control.setMode( 'rotate' );
+                    break;
+                case 'scale':
+                    control.setMode( 'scale' );
+                    break;
+            } 
+        }
+        
+    },false);
+
+	gui.domElement.addEventListener( 'change', function(){
+        // animation
+        if(params.animation == 'disable'){
+            control.enabled = false;
+        } else{
+            control.enabled = true;
+            switch(params.modeControl){
+                case 'aniTranslate':
+                    control.setMode( 'aniTranslate' );
+                    break;
+                case 'aniRotate':
+                    control.setMode( 'aniRotation' );
+                    break;
+                case 'aniScale':
+                    control.setMode( 'aniScale' );
+                    break;
+            } 
+        }
+        
+    },false);
 }
 
 function onWindowResize() {
@@ -431,7 +450,6 @@ function onWindowResize() {
 	render();
 }
 
-// GET LIGHT
 function render() {
 	lightHelper.update();
 	shadowCameraHelper.update();
@@ -609,13 +627,29 @@ function simulate() {
 	mesh.material.color.setHex(params.color);
 	spotLight.position.set(params.lx, params.ly, params.lz);
 
-	if (params.animation) {
-		const time = Date.now();
-		mesh.position.x = Math.cos(time * 0.001) * 300;
-		mesh.position.y = Math.sin(time * 0.001) * 30;
-		mesh.position.z = Math.sin(time * 0.001) * 300;
+	const time = Date.now();
+	switch (params.animation) {
+		case 'aniRotation':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
 
-		mesh.rotation.x += 0.02;
-		mesh.rotation.y += 0.03;
+			mesh.rotation.x += 0.02;
+			mesh.rotation.y += 0.03;
+			break;
+		case 'aniScale':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
+
+			mesh.scale.set(1,1,2);
+			break;
+		case 'aniTranslate':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
+
+			plane.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+			break;
 	}
 }
