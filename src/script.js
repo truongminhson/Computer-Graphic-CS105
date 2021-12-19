@@ -628,11 +628,11 @@ function simulate() {
 	switch (params.animation) {
 		case 'aniScale':
 			mesh.position.x = Math.cos(time * 0.001) * 300;
-			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.y = Math.cos(time * 0.001) * 30;
 			mesh.position.z = Math.sin(time * 0.001) * 300;
 
 			mesh.scale.x += 0.02;
-			mesh.scale.z += 0.05;
+			mesh.scale.z += 0.02;
 			break;
 		case 'aniRotation':
 			mesh.position.x = Math.sin( time * 0.001 ) * 300;
