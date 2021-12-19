@@ -12,15 +12,12 @@ git clone https://github.com/truongminhson/Computer-Graphic-CS105.git
 cd Computer-Graphic-CS105
 
 # 5. Cài đặt các package
-
 yarn install
 
 # 6. Chạy chương trình trên localhost:8080
-
 yarn dev
 
 # 7. Build production
-
 yarn build
 
 # ==> Link video demo trên localhost:

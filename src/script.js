@@ -412,27 +412,6 @@ function init() {
         }
         
     },false);
-
-	gui.domElement.addEventListener( 'change', function(){
-        // animation
-        if(params.animation == 'disable'){
-            animate.enabled = false;
-        } else{
-            animate.enabled = true;
-            switch(params.modeControl){
-                case 'aniTranslate':
-                    control.setMode( 'aniTranslate' );
-                    break;
-                case 'aniRotate':
-                    control.setMode( 'aniRotation' );
-                    break;
-                case 'aniScale':
-                    control.setMode( 'aniScale' );
-                    break;
-            } 
-        }
-        
-    },false);
 }
 
 function onWindowResize() {
@@ -649,24 +628,16 @@ function simulate() {
 	mesh.position.x = Math.cos(time * 0.001) * 300;
 	mesh.position.y = Math.sin(time * 0.001) * 30;
 	mesh.position.z = Math.sin(time * 0.001) * 300;
-	if (params.animate == 'diasable') { animate.enabled = false}
-	else {
-		animate.enabled = true
-		switch (params.animation) {
-			case 'aniRotation':
-				mesh.rotation.x += 0.02;
-				mesh.rotation.y += 0.03;
-				break;
-			case 'aniScale':
-				mesh.position.z = Math.sin(time * 0.001) * 300;
-
-				mesh.scale.set(1,1,2);
-				break;
-			case 'aniTranslate':
-				mesh.position.z = Math.sin(time * 0.001) * 300;
-
-				plane.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
-				break;
-		}
+	switch (params.animation) {
+		case 'aniRotation':
+			mesh.rotation.x += 0.02;
+			mesh.rotation.y += 0.03;
+			break;
+		case 'aniScale':
+			mesh.scale.set(1,1,2);
+			break;
+		case 'aniTranslate':
+			mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+			break;
 	}
 }
