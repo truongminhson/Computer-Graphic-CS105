@@ -625,20 +625,28 @@ function simulate() {
         }
 
 	const time = Date.now();
-
-	mesh.position.x = Math.cos(time * 0.001) * 300;
-	mesh.position.y = Math.sin(time * 0.001) * 30;
-	mesh.position.z = Math.sin(time * 0.001) * 300;
 	switch (params.animation) {
 		case 'aniScale':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
+
 			mesh.scale.x += 0.02;
 			mesh.scale.z += 0.05;
 			break;
 		case 'aniRotation':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
+
 			mesh.rotation.x += 0.02;
 			mesh.rotation.y += 0.03;
 			break;		
 		case 'aniTranslate':
+			mesh.position.x = Math.cos(time * 0.001) * 300;
+			mesh.position.y = Math.sin(time * 0.001) * 30;
+			mesh.position.z = Math.sin(time * 0.001) * 300;
+			
 			mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.05);
 			break;
 	}
