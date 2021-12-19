@@ -307,7 +307,7 @@ function init() {
 	})
 		.name('Animation')
 		.onChange(function (val) {
-			switch (val) {
+			switch (!val) {
 				case 'aniScale':
 					mesh.scale.set(1,1,2);
 					break;
@@ -316,7 +316,7 @@ function init() {
 					mesh.rotation.y += 0.03;
 					break;		
 				case 'aniTranslate':
-					mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+					mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.05);
 					break;
 			}
 		});
@@ -398,6 +398,7 @@ function init() {
             texturedMaterial = new THREE.MeshPhongMaterial( { color: params.color, map: textureMap1, side: THREE.DoubleSide } );
         };
     })
+
     window.addEventListener( 'resize', onWindowResize );
     gui.domElement.addEventListener( 'change', function(){
         // control
@@ -636,15 +637,19 @@ function simulate() {
 	mesh.position.y = Math.sin(time * 0.001) * 30;
 	mesh.position.z = Math.sin(time * 0.001) * 300;
 	switch (params.animation) {
+		case 'disable':
+			animate().enabled = false;
+			break;
 		case 'aniScale':
-			mesh.scale.set(1,1,2);
+			mesh.scale.x += 0.02;
+			mesh.scale.z += 0.05;
 			break;
 		case 'aniRotation':
 			mesh.rotation.x += 0.02;
 			mesh.rotation.y += 0.03;
 			break;		
 		case 'aniTranslate':
-			mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+			mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.05);
 			break;
 	}
 }
