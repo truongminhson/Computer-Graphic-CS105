@@ -229,18 +229,20 @@ function init() {
 	mesh.castShadow = true;
 	scene.add(mesh);
 
-	const pointsMaterial = new THREE.PointsMaterial({
-		size: 5,
-		sizeAttenuation: false,
-		map: new THREE.TextureLoader().load('Wood.png'),
-		alphaTest: 0.5,
-		morphTargets: true,
-	});
-	points = new THREE.Points(mesh.geometry, pointsMaterial);
-	points.morphTargetInfluences = mesh.morphTargetInfluences;
-	points.morphTargetDictionary = mesh.morphTargetDictionary;
-	points.visible = false;
-	mesh.add(points);
+	const pointsMaterial = new THREE.PointsMaterial( {
+
+        size: 5,
+        sizeAttenuation: false,
+        map: new THREE.TextureLoader().load( 'Wood.png' ),
+        alphaTest: 0.5,
+        morphTargets: true
+
+    } );
+    points = new THREE.Points( mesh.geometry, pointsMaterial );
+    points.morphTargetInfluences = mesh.morphTargetInfluences;
+    points.morphTargetDictionary = mesh.morphTargetDictionary;
+    points.visible = false;
+    mesh.add( points );
 
 	// CONTROLS
 	orbit = new OrbitControls( currentCamera, renderer.domElement );
@@ -414,9 +416,9 @@ function init() {
 	gui.domElement.addEventListener( 'change', function(){
         // animation
         if(params.animation == 'disable'){
-            control.enabled = false;
+            animate.enabled = false;
         } else{
-            control.enabled = true;
+            animate.enabled = true;
             switch(params.modeControl){
                 case 'aniTranslate':
                     control.setMode( 'aniTranslate' );
@@ -590,12 +592,12 @@ function simulate() {
 			mesh.geometry = octaGeo;
 	}
 
-	if (params.material == 'point') {
-		points.visible = true;
-		points.geometry = mesh.geometry;
-	} else {
-		points.visible = false;
-	}
+	if(params.material=='point'){
+        points.visible=true;
+        points.geometry = mesh.geometry;
+    }else{
+        points.visible=false;
+    }
 
 	switch (params.material) {
 		case 'wireframe':
@@ -626,21 +628,21 @@ function simulate() {
 	spotLight.position.set(params.lx, params.ly, params.lz);
 
 	if(params.modeControl == 'disable'){
-		control.enabled = false;
-	} else{
-		control.enabled = true;
-		switch(params.modeControl){
-			case 'translate':
-				control.setMode( 'translate' );
-				break;
-			case 'rotate':
-				control.setMode( 'rotate' );
-				break;
-			case 'scale':
-				control.setMode( 'scale' );
-				break;
-		} 
-	}
+            control.enabled = false;
+        } else{
+            control.enabled = true;
+            switch(params.modeControl){
+                case 'translate':
+                    control.setMode( 'translate' );
+                    break;
+                case 'rotate':
+                    control.setMode( 'rotate' );
+                    break;
+                case 'scale':
+                    control.setMode( 'scale' );
+                    break;
+            } 
+        }
 
 	const time = Date.now();
 
@@ -649,6 +651,7 @@ function simulate() {
 	mesh.position.z = Math.sin(time * 0.001) * 300;
 	if (params.animate == 'diasable') { animate.enabled = false}
 	else {
+		animate.enabled = true
 		switch (params.animation) {
 			case 'aniRotation':
 				mesh.rotation.x += 0.02;
