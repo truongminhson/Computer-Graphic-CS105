@@ -8,20 +8,20 @@ npm install --global yarn
 # 3. Tải git về máy
 git clone https://github.com/truongminhson/Computer-Graphic-CS105.git
 
-# Chuyển vào Folder Computer-Graphic-CS105
+# 4. Chuyển vào Folder Computer-Graphic-CS105
 cd Computer-Graphic-CS105
 
-# Cài đặt các package
+# 5. Cài đặt các package
 
 yarn install
 
-# Chạy chương trình trên localhost:8080
+# 6. Chạy chương trình trên localhost:8080
 
 yarn dev
 
-# Build production
+# 7. Build production
 
 yarn build
 
-# Link video demo trên localhost:
+# ==> Link video demo trên localhost:
 
