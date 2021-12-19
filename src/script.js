@@ -625,41 +625,45 @@ function simulate() {
 	mesh.material.color.setHex(params.color);
 	spotLight.position.set(params.lx, params.ly, params.lz);
 
-	switch(params.modeControl){
-		case 'translate':
-			control.setMode( 'translate' );
-			break;
-		case 'rotate':
-			control.setMode( 'rotate' );
-			break;
-		case 'scale':
-			control.setMode( 'scale' );
-			break;
-	} 
+	if(params.modeControl == 'disable'){
+		control.enabled = false;
+	} else{
+		control.enabled = true;
+		switch(params.modeControl){
+			case 'translate':
+				control.setMode( 'translate' );
+				break;
+			case 'rotate':
+				control.setMode( 'rotate' );
+				break;
+			case 'scale':
+				control.setMode( 'scale' );
+				break;
+		} 
+	}
 
 	const time = Date.now();
-	switch (params.animation) {
-		case 'aniRotation':
-			mesh.position.x = Math.cos(time * 0.001) * 300;
-			mesh.position.y = Math.sin(time * 0.001) * 30;
-			mesh.position.z = Math.sin(time * 0.001) * 300;
 
-			mesh.rotation.x += 0.02;
-			mesh.rotation.y += 0.03;
-			break;
-		case 'aniScale':
-			mesh.position.x = Math.cos(time * 0.001) * 300;
-			mesh.position.y = Math.sin(time * 0.001) * 30;
-			mesh.position.z = Math.sin(time * 0.001) * 300;
+	mesh.position.x = Math.cos(time * 0.001) * 300;
+	mesh.position.y = Math.sin(time * 0.001) * 30;
+	mesh.position.z = Math.sin(time * 0.001) * 300;
+	if (params.animate == 'diasable') { animate.enabled = false}
+	else {
+		switch (params.animation) {
+			case 'aniRotation':
+				mesh.rotation.x += 0.02;
+				mesh.rotation.y += 0.03;
+				break;
+			case 'aniScale':
+				mesh.position.z = Math.sin(time * 0.001) * 300;
 
-			mesh.scale.set(1,1,2);
-			break;
-		case 'aniTranslate':
-			mesh.position.x = Math.cos(time * 0.001) * 300;
-			mesh.position.y = Math.sin(time * 0.001) * 30;
-			mesh.position.z = Math.sin(time * 0.001) * 300;
+				mesh.scale.set(1,1,2);
+				break;
+			case 'aniTranslate':
+				mesh.position.z = Math.sin(time * 0.001) * 300;
 
-			plane.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
-			break;
+				plane.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+				break;
+		}
 	}
 }
