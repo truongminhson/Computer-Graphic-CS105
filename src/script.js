@@ -154,7 +154,7 @@ function init() {
 		dithering: true,
 	}); // Wire
 
-	pointMaterial = new THREE.PointsMaterial({
+	pointMaterial = new THREE.MeshBasicMaterial({
 		color: params.color,
 		wireframe: true,
 		dithering: true,
