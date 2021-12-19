@@ -307,10 +307,17 @@ function init() {
 	})
 		.name('Animation')
 		.onChange(function (val) {
-			if (!val) {
-				mesh.position.set(0, 40, 0);
-				mesh.rotation.x = 0;
-				mesh.rotation.y = 0;
+			switch (val) {
+				case 'aniRotation':
+					mesh.rotation.x += 0.02;
+					mesh.rotation.y += 0.03;
+					break;
+				case 'aniScale':
+					mesh.scale.set(1,1,2);
+					break;
+				case 'aniTranslate':
+					mesh.translateOnAxis(new THREE.Vector3(0, 0, -1), 0.01);
+					break;
 			}
 		});
 
