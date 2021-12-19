@@ -193,7 +193,7 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'cube_map/';
+	const path = 'pisa/';
 	const urls = [
 		path + 'px.png',
 		path + 'nx.png',
@@ -229,11 +229,12 @@ function init() {
 	mesh.castShadow = true;
 	scene.add(mesh);
 
-	const pointsMaterial = new THREE.PointsMaterial( {
+	//
+    const pointsMaterial = new THREE.PointsMaterial( {
 
         size: 5,
         sizeAttenuation: false,
-        map: new THREE.TextureLoader().load( 'Wood.png' ),
+        map: new THREE.TextureLoader().load( 'disc.png' ),
         alphaTest: 0.5,
         morphTargets: true
 
@@ -578,31 +579,30 @@ function simulate() {
     }else{
         points.visible=false;
     }
-
-	switch (params.material) {
-		case 'wireframe':
-			mesh.material = wireMaterial;
-			break;
-		case 'point':
-			mesh.material = pointMaterial;
-			break;
-		case 'flat':
-			mesh.material = flatMaterial;
-			break;
-		case 'smooth':
-			mesh.material = gouraudMaterial;
-			break;
-		case 'glossy':
-			mesh.material = phongMaterial;
-			break;
-		case 'textured':
-			mesh.material = texturedMaterial;
-			break;
-		case 'reflective':
-			mesh.material = reflectiveMaterial;
-			scene.background = textureCube;
-			break;
-	}
+    switch(params.material){
+        case 'wireframe':
+            mesh.material = wireMaterial;
+            break;
+        case 'point':
+            mesh.material = flatMaterial;
+            break;
+        case 'flat':
+            mesh.material = flatMaterial;
+            break;
+        case 'smooth':
+            mesh.material = gouraudMaterial;
+            break;
+        case 'glossy':
+            mesh.material = phongMaterial;
+            break;
+        case 'textured':
+            mesh.material = texturedMaterial;
+            break;
+        case 'reflective':
+            mesh.material = reflectiveMaterial;
+            scene.background = textureCube;
+            break;
+    }   
 
 	mesh.material.color.setHex(params.color);
 	spotLight.position.set(params.lx, params.ly, params.lz);
