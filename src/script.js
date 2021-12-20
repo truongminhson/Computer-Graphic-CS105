@@ -193,7 +193,7 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'cube_map/';
+	const path = 'MilkyWay/';
 	const urls = [
 		path + 'px.jpg',
 		path + 'nx.jpg',
