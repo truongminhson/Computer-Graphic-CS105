@@ -193,14 +193,14 @@ function init() {
 	});
 
 	// REFLECTION MAP
-	const path = 'cube_map/';
+	const path = 'pisa/';
 	const urls = [
-		path + 'px.jpg',
-		path + 'nx.jpg',
-		path + 'py.jpg',
-		path + 'ny.jpg',
-		path + 'pz.jpg',
-		path + 'nz.jpg',
+		path + 'px.png',
+		path + 'nx.png',
+		path + 'py.png',
+		path + 'ny.png',
+		path + 'pz.png',
+		path + 'nz.png',
 	];
 	textureCube = new THREE.CubeTextureLoader().load(urls);
 	textureCube.encoding = THREE.sRGBEncoding;
